@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <p>Enter Your Date Of Birth</p>
+        <input type="date" name="age" id="agecal" max="">
+        <button onclick="calculateAge()">Calculate Age</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        let userinput = document.getElementById('agecal');
+        userinput.max = new Date().toISOString().split("T")[0];
+
+        function calculateAge() {
+            let birthDate = new Date(userinput.value);
+            
+            if (isNaN(birthDate.getTime())) {
+                alert("Please select a valid date of birth.");
+                return;
+            }
+            let currentDate = new Date();
+            let age = currentDate.getFullYear() - birthDate.getFullYear();
+            
+            if (currentDate.getMonth() < birthDate.getMonth() || 
+                (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            document.getElementById('result').innerText = "Your age is " + age + " years old.";
+        }
+    </script>
+    
+</body>
+</html>
